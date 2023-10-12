@@ -1,0 +1,47 @@
+// Challenge #3
+// We have a nested object. We would like a function where you pass in the object and a key and
+// get back the value.
+// The choice of language and implementation is up to you.
+// Example Inputs
+// object = {“a”:{“b”:{“c”:”d”}}}
+// key = a/b/c
+// object = {“x”:{“y”:{“z”:”a”}}}
+// key = x/y/z
+// value = a
+
+
+
+// Ans. ->  We can implement a function to traverse a nested object in JavaScript below :
+
+
+function getNestedValue(obj, key) {
+    // Split the key by '/'
+    const keys = key.split('/');
+
+    // Use reduce to traverse the object
+    const result = keys.reduce((acc, currentKey) => {
+        if (acc && acc[currentKey] !== undefined) {
+            return acc[currentKey];
+        }
+        return undefined;
+    }, obj);
+
+    return result;
+}
+
+// Test the function with given examples
+const object1 = {"a": {"b": {"c": "d"}}};
+const key1 = "a/b/c";
+console.log(getNestedValue(object1, key1));  // Expected output: d
+
+const object2 = {"x": {"y": {"z": "a"}}};
+const key2 = "x/y/z";
+console.log(getNestedValue(object2, key2));  // Expected output: a
+
+
+// In this function:
+// We split the key using the '/' delimiter.
+// We use the reduce function to traverse the nested object.
+// If at any point we can't find the key, the function will return undefined.
+
+

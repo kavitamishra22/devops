@@ -1,0 +1,25 @@
+ 
+# Challenge #2
+# We need to write code that will query the meta data of an instance within AWS or Azure or GCP
+# and provide a json formatted output.
+#The choice of language and implementation is up to you.
+
+# Ans.-> To query the metadata of an instance within AWS, Azure, or GCP using a bash script, you can utilize curl. Here are bash scripts for each of the three mentioned cloud providers:
+# AWS provides a metadata service for EC2 instances that can be queried from within the instance.
+
+#!/bin/bash
+
+get_aws_metadata() {
+    base_url="http://169.254.169.254/latest/meta-data/"
+    # Example: Fetch instance ID and type. You can fetch other metadata similarly.
+    paths=("instance-id" "instance-type")
+    
+    echo "{"
+    for path in "${paths[@]}"; do
+        value=$(curl -s "${base_url}${path}")
+        echo "\"${path}\": \"${value}\","
+    done
+    echo "}"
+}
+
+get_aws_metadata
